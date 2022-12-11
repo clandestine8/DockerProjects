@@ -9,22 +9,18 @@
 
 2. Clone your app(s) into the a subfolder under `Repos`
 
-3. Copy `docker-compose.yaml` & `Caddyfile` into the `Projects` folder
+3. From the `Projects` folder run `docker compose up -d`
 
-4. Copy `php-fpm-runtime.Dockerfile` into `Projects\Docker` folder
+4. Adjust `docker-compose.yaml` for your projects. Duplicate the example app for PHP based apps
 
-5. From the `Projects` folder run `docker compose up -d`
+5. Adjust `Caddyfile` for your Apps and Services. See https://caddyserver.com/docs/caddyfile for more help
 
-6. Adjust docker-compose.yaml for your projects. Duplicate the example app for PHP based apps
-
-7. Adjust Caddyfile for your Apps and Services. See https://caddyserver.com/docs/caddyfile for more help
-
-8. From the `Projects` folder run `docker compose up -d && docker compose restart caddy` to apply new settings.
+6. From the `Projects` folder run `docker compose up -d && docker compose restart caddy` to apply new settings.
 
 
 ## Services Links
 
-[https://app.localhost/](https://app.localhost/) is where you will find you PHP App
+[https://--app-url--.localhost/](https://app.localhost/) is where you will find you PHP App
 
 [https://phpmyadmin.localhost/](https://phpmyadmin.localhost/) is your PhpMyAdmin UI
 
