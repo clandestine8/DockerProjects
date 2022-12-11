@@ -1,0 +1,77 @@
+version: "3.7"
+
+services:
+
+######
+#APPS#
+######
+
+##
+    App:
+        image: php-fpm-runtime
+        user: 1000:1000
+        build:
+            dockerfile: $PWD/Docker/php-fpm-runtime.Dockerfile
+        restart: always
+        expose:
+            - 9000
+        volumes:
+            - $PWD/Repos/App:/var/www
+
+##
+
+##########
+#SERVICES#
+##########
+
+##
+    caddy:
+        image: caddy:alpine
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+            - "443:443/udp"
+        volumes:
+            - $PWD/Caddyfile:/etc/caddy/Caddyfile
+            - $PWD/Repos:/srv
+            - $PWD/Services/caddy/data:/data
+            - $PWD/Services/caddy/config:/config
+##
+    mysql:
+        image: mysql:8.0
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: "SuperSecurePassword"
+            MYSQL_ROOT_HOST: "%"
+        volumes:
+            - $PWD/Services/mysql/data/:/var/lib/mysql
+        ports:
+            - 3306:3306
+##
+    redis:
+        restart: always
+        image: redis:6
+        command: redis-server --appendonly yes
+        ports:
+            - 6379:6379
+##
+    mailhog:
+        restart: always
+        image: mailhog/mailhog
+        ports:
+            - 1025:1025
+            - 8025:8025
+
+##
+    phpmyadmin:
+        image: phpmyadmin:latest
+        restart: always
+        environment:
+            PMA_ABSOLUTE_URI: "https://phpmyadmin.localhost/"
+            PMA_HOST: mysql
+            PMA_USER: root
+            PMA_PASSWORD: "SuperSecurePassword"
+            UPLOAD_LIMIT: 10G
+            MEMORY_LIMIT: 2G
+            MAX_EXECUTION_TIME: 600

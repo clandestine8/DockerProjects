@@ -1,0 +1,19 @@
+app.localhost {
+  	tls internal
+	root * /srv/App/public
+	php_fastcgi supertool:9000 {
+        	root /var/www/public
+	}
+	file_server
+	encode gzip
+}
+
+phpmyadmin.localhost {
+  	tls internal
+	reverse_proxy phpmyadmin:80
+}
+
+mailhog.localhost {
+  	tls internal
+	reverse_proxy mailhog:8025
+}
