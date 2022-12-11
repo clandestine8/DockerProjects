@@ -5,16 +5,9 @@
 
 ## Setup
 
-1. To Start, Create a directory tree as such:
+1. Clone: `git clone https://github.com/clandestine8/DockerProjects.git Projects && cd Projects`
 
- - Projects
-	 - Docker
-	 - Repos
-	 - Services
-		 - caddy
-		 - mysql
-
-2. Clone your app into the a subfolder under `Repos`
+2. Clone your app(s) into the a subfolder under `Repos`
 
 3. Copy `docker-compose.yaml` & `Caddyfile` into the `Projects` folder
 
