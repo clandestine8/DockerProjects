@@ -1,5 +1,8 @@
 FROM php:8.1-fpm-alpine
 
+WORKDIR /var/www/
+RUN rm -rf /var/www/* && chown www-data:www-data -R /var/www
+
 # Install Deps
 RUN apk add --no-cache git sed nodejs npm openssh-client libzip-dev libsodium-dev icu-dev mysql-client supervisor freetype-dev libjpeg-turbo-dev libpng-dev
 RUN apk add --no-cache $PHPIZE_DEPS
@@ -61,8 +64,6 @@ RUN touch /usr/bin/entry \
 && chmod +x,o+x,g+x /usr/bin/start \
 && chmod +x,o+x,g+x /usr/bin/entry \
 && chmod +x,o+x,g+x /usr/bin/first
-
-RUN rm -rf /var/www/* && chown www-data:www-data -R /var/www
 
 STOPSIGNAL SIGTERM
 EXPOSE 9000
